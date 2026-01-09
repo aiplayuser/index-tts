@@ -5,6 +5,21 @@ import sys
 import threading
 import time
 
+import subprocess
+from urllib.request import urlopen
+subprocess.run("git clone https://github.com/aiplayuser/indextts-examples.git examples")
+def wait_and_open():
+    print(f"\n启动大概需要一分钟\n")
+    starttime = time.time()
+    while True:
+        try:
+            urlopen("http://127.0.0.1:7860")
+            return
+        except:
+            print(f"\r用时{int(time.time()-starttime)}秒>>", end="", flush=True)
+            time.sleep(3)
+threading.Thread(target=wait_and_open, daemon=True).start()
+
 import warnings
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -554,4 +569,5 @@ with gr.Blocks(title="IndexTTS Demo") as demo:
 
 if __name__ == "__main__":
     demo.queue(20)
-    demo.launch(server_name=cmd_args.host, server_port=cmd_args.port)
+    demo.launch(server_name=cmd_args.host, server_port=cmd_args.port, inbrowser=True)
+    #demo.launch(server_name=cmd_args.host, server_port=cmd_args.port)
