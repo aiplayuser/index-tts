@@ -7,7 +7,9 @@ import time
 
 import subprocess
 from urllib.request import urlopen
-subprocess.run("git clone https://github.com/aiplayuser/indextts-examples.git examples")
+subprocess.run("git clone https://github.com/aiplayuser/indextts_lfs.git")
+subprocess.run('cmd /c mklink /j examples indextts_lfs\\examples')
+subprocess.run('cmd /c mklink /j tests indextts_lfs\\tests')
 def wait_and_open():
     print(f"\n启动大概需要一分钟\n")
     starttime = time.time()
